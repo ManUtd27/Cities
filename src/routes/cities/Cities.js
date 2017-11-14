@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   renderItem = ({ item}) => {
       return (
         <ListItem
-        onPress={() => this.props.navigation.navigate('City', item)}
+        onPress={() => this.props.navigation.navigate('City', {city: item } )}
         title={item.name}
         subtitle={item.country}
         />

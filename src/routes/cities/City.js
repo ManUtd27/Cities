@@ -9,10 +9,12 @@ import {
 
 import { Icon, Button } from 'react-native-elements'
 import { colors} from "@theme"
+import { addLocation} from "../../actions/cititesActions";
+import { connect } from 'react-redux'
 
-export default class City extends React.Component {
+ class City extends React.Component {
   static navigationOptions(props){
-    const { name } = props.navigation.state.params
+    const { name } = props.navigation.state.params.city
     return {
       title: name
     }
@@ -43,9 +45,27 @@ updateInput = (key, value ) => {
 }
 
 
+addLocation = () =>  {
+      const { city } = this.props.navigation.state.params
+    const { location } = this.state
+    this.props.dispatchAddLocation(city, location)
+    this.setState({location: {name: '', address: '' }})
+    this.toggleModal()
+}
+
   render() {
     return(
       <View style={styles.container}>
+          {
+            this.props.city.location.map((location, index) => (
+
+              <View style={styles.card} key={index}>
+                  <Text style={styles.info}> {location.name}</Text>
+                   <Text style={styles.info}> {location.address}</Text>
+              </View>
+
+              ))
+          }
         <Icon
         underlyColor={colors.primary}
         raised
@@ -91,6 +111,7 @@ updateInput = (key, value ) => {
 
               </TextInput>
               <Button
+                  onPress={this.addLocation}
                 title='Submit'
               />
           </View>
@@ -106,6 +127,18 @@ updateInput = (key, value ) => {
 
 
 const styles = StyleSheet.create({
+
+    card: {
+        backgroundColor: 'white',
+        margin: 10,
+        padding:15
+    },
+
+    info: {
+    marginTop: 10,
+        fontWeight: '500'
+},
+
     title:{
         marginTop: 80,
         marginVertical: 15,
@@ -116,7 +149,8 @@ const styles = StyleSheet.create({
       height: 50,
       marginHorizontal: 15,
       backgroundColor: '#ddd',
-        marginBottom: 10
+        marginBottom: 10,
+        textAlign: 'center'
     },
     modal: {
       flex: 1,
@@ -133,3 +167,15 @@ const styles = StyleSheet.create({
     }
 
 })
+
+
+const mapStateToProps = (state, props ) => {
+    const id = props.navigation.state.params.city.id
+    return {
+        city: state.citiesReducer.cities[id]
+    }
+}
+const mapDispatchToProps = {
+   dispatchAddLocation: (city, location) => addLocation(city, location)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(City)

@@ -10,7 +10,7 @@ import { AsyncStorage } from 'react-native'
 
 const config = {
     key: 'root',
-    storage: AsyncStorage
+    storage: AsyncStorage,
 }
 
 export default persistCombineReducers( config,{

@@ -1,19 +1,9 @@
 import uuidv4 from 'uuid/v4'
-import {ADD_CITY} from "../actions/cititesActions";
+import {ADD_CITY, ADD_LOCATION } from "../actions/cititesActions";
 
 const initialState = {
-    cities: {
-        'London':{
-            name: 'London',
-            country: 'UK',
-            id: uuidv4()
-        },
-        'Seattle':{
-            name: 'Seattle',
-            country: 'USA',
-            id: uuidv4()
-        }
-    }
+    cities: {}
+
 }
 
 export default function citiesReducer(state = initialState, action){
@@ -24,7 +14,25 @@ export default function citiesReducer(state = initialState, action){
             return{
                 cities:{
                     ...state.cities,
-                    [id]: action.city
+                    [id]: {
+                        ...action.city,
+                        location: [],
+                        id: id
+                    }
+                }
+            }
+        case ADD_LOCATION:
+            return {
+                cities: {
+                    ...state.cities,
+                    [action.city.id]:{
+                        ...state.cities[action.city.id],
+                        location:[
+                            ...state.cities[action.city.id].location,
+                            action.location
+                        ]
+                    }
+
                 }
             }
         default:
