@@ -10,6 +10,8 @@ import {
 import { colors } from '@theme'
 import { Button } from 'react-native-elements'
 import { CitiesLogo} from '@assets/images'
+import { addCity } from "../../actions/cititesActions";
+import {connect} from 'react-redux'
 
 const initialState = {
   city: {
@@ -18,7 +20,7 @@ const initialState = {
   }
 }
 
-export default class AddCity extends React.Component {
+class AddCity extends React.Component {
 
 state = initialState
 
@@ -33,6 +35,7 @@ updateCity = (key, value) => {
 }
 
 addCity = () => {
+  this.props.dispatchAddCity(this.state.city)
   this.setState(initialState)
   this.props.navigation.navigate('Cities')
 }
@@ -87,3 +90,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary
   }
 })
+
+const mapDispatchToProps = {
+   dispatchAddCity: (city) => addCity(city)
+}
+export default connect(null, mapDispatchToProps)(AddCity)
