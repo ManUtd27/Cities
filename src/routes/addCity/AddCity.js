@@ -10,7 +10,6 @@ import {
 import { colors } from '@theme'
 import { Button } from 'react-native-elements'
 import { CitiesLogo} from '@assets/images'
-import CitiesStore from '../../store/CitiesStore'
 
 const initialState = {
   city: {
@@ -34,7 +33,6 @@ updateCity = (key, value) => {
 }
 
 addCity = () => {
-  CitiesStore.addCity(this.state.city)
   this.setState(initialState)
   this.props.navigation.navigate('Cities')
 }

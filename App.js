@@ -7,6 +7,20 @@
 import React from 'react'
 import Tabs from './src/tabs'
 
-const App = () => <Tabs />
+
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import rootReducer from './src/reducers'
+
+const store = createStore(rootReducer)
+
+const App = () => (
+    <Provider store={store}>
+        <Tabs/>
+    </Provider>
+)
+
+
+
 
 export default App

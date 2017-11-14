@@ -9,8 +9,11 @@ import {
 } from 'react-native'
 
 import { ListItem } from 'react-native-elements'
-import CitiesStore from '../../store/CitiesStore'
-import { observer } from 'mobx-react'
+
+import { connect } from 'react-redux'
+
+
+
 import uuidV4 from 'uuid/v4'
 const styles = StyleSheet.create({
   container:{
@@ -22,9 +25,8 @@ const styles = StyleSheet.create({
 
   }
 })
-@observer
 
-export default class Cities extends React.Component {
+ class Cities extends React.Component {
   static navigationOptions = {
     headerTitle: (
       <Image
@@ -48,7 +50,7 @@ export default class Cities extends React.Component {
   }
 
   render(){
-    let cities = CitiesStore.cities
+    let cities = this.props.cities
     cities = Object.values(cities)
 
 
@@ -67,3 +69,11 @@ export default class Cities extends React.Component {
     )
   }
 }
+
+export default connect(
+    (state) => {
+        return {
+        cities: state.citiesReducer.cities
+        }
+    }
+)(Cities)
