@@ -5,8 +5,8 @@
 
 
 const colors = {
-  primary: '#9c27b0',
-  secondary: '#555'
+  primary: '#757083',
+  secondary: '#D7CDCC'
 }
 
 export {
