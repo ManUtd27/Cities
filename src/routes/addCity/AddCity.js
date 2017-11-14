@@ -51,11 +51,13 @@ addCity = () => {
           value={this.state.city.name}
           placeholder='City Name'
             onChangeText={value => this.updateCity('name', value)}
+            keyboardAppearance={'dark'}
           />
           <TextInput style={styles.input}
           value={this.state.city.country}
           placeholder='Country  Name'
             onChangeText={value => this.updateCity('country', value)}
+            keyboardAppearance={'dark'}
            />
 
           <Button
