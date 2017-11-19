@@ -5,7 +5,8 @@ import {
   Text,
   StyleSheet,
   Image,
-  TextInput
+  TextInput,
+    TouchableOpacity
 } from 'react-native'
 import { colors } from '@theme'
 import { Button } from 'react-native-elements'
@@ -39,14 +40,23 @@ addCity = () => {
   this.setState(initialState)
   this.props.navigation.navigate('Cities')
 }
+
+openDrawer = () => {
+    this.props.navigation.navigate('DrawerToggle')
+}
   render(){
     return(
       <View style={styles.container}>
-          <Image
+        <TouchableOpacity
+            onPress={this.openDrawer}
+        >
+        <Image
           source={CitiesLogo}
           style={styles.logo}
           resizeMode='contain'
           />
+        </TouchableOpacity>
+
           <TextInput style={styles.input}
           value={this.state.city.name}
           placeholder='City Name'
