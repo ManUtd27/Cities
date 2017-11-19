@@ -2,6 +2,7 @@ import React from 'react'
 import {Image, StyleSheet} from 'react-native'
 import {
   TabNavigator,
+    DrawerNavigator
 
 } from 'react-navigation'
 
@@ -11,7 +12,7 @@ import CitiesNav from './routes/cities/CitiesNav'
 import Cities from './routes/cities/Cities'
 import AddCity from './routes/addCity/AddCity'
 
-const tabs = {
+export const tabs = {
   Cities: {
     screen: CitiesNav,
     navigationOptions:{
@@ -55,10 +56,40 @@ const tabConfig = {
   }
 }
 
+
+
+
+
+const RootDrawer = DrawerNavigator({
+
+    Cities: {
+        screen: TabNavigator(tabs, tabConfig),
+        navigationOptions: {
+            drawerLabel: 'Cities',
+            drawerIcon: ({ tintColor }) => (
+                <Image
+                    style={[styles.image, {tintColor} ]}
+                    source={require('./assets/cityicon.png')}
+                />
+            ),
+        },
+    },
+    Profile: {
+        screen: AddCity,
+    },
+
+
+})
+
+
+
+
 const styles = StyleSheet.create({
   image:{
     width:28,
     height: 28,
     }
 })
-export default TabNavigator(tabs, tabConfig)
+
+
+export default RootDrawer

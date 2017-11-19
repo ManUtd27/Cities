@@ -2,10 +2,11 @@ import React from 'react'
 
 import {
   View,
-  Text,
+  Button,
   StyleSheet,
   Image,
   FlatList,
+    TouchableOpacity
 } from 'react-native'
 
 import { ListItem } from 'react-native-elements'
@@ -27,15 +28,20 @@ const styles = StyleSheet.create({
 })
 
  class Cities extends React.Component {
-  static navigationOptions = {
+
+      test =  this.props.navigation.navigate('DrawerToggle')
+
+     static navigationOptions = ({ navigation, screenProps }) => ({
     headerTitle: (
       <Image
         source={require('../../assets/citieslogo.png')}
         style={styles.title}
         resizeMode='contain'
       />
-    )
-  }
+    ),
+      headerLeft: <Button title="Test" onPress={ () => this.test }/>,
+  });
+
 
 
 
@@ -49,13 +55,14 @@ const styles = StyleSheet.create({
       )
   }
 
+
+
+
   render(){
     let cities = this.props.cities
     cities = Object.values(cities)
 
-
-
-    return(
+ return(
       <View style={styles.container}>
 
         <FlatList
@@ -64,6 +71,13 @@ const styles = StyleSheet.create({
         renderItem={this.renderItem}
 
         />
+
+          <View>
+              <Button
+                  onPress={() => this.props.navigation.navigate('DrawerToggle')}
+                  title="Open Drawer"
+              />
+          </View>
 
       </View>
     )
